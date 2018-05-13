@@ -1,0 +1,46 @@
+group 'sql-optimizer'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: "com.moowork.node"
+
+sourceCompatibility = 1.8
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.1.RELEASE"
+        classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.4.RELEASE'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+task appNpmInstall(type: NpmTask) {
+    description = "Installs dependencies from package.json"
+    workingDir = file("${project.projectDir}/src/main/webapp")
+    args = ['install']
+}
+
+//task gruntDefault(
+//        type: GruntTask,
+//        group: 'grunt',
+//        description: 'Cleans and recreates all Javascript dependencies',
+//        dependsOn: ['npmInstall']) {
+//}
+
+processResources.dependsOn(project.tasks.appNpmInstall)

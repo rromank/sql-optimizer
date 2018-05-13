@@ -1,0 +1,16 @@
+.gradle
+!gradle/wrapper/gradle-wrapper.jar
+gradlew
+gradlew.bat
+
+
+### IntelliJ IDEA ###
+.idea
+*.iml
+
+package-lock.json
+*.log
+
+build/
+gradle/
+node_modules/
