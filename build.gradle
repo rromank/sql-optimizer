@@ -1,12 +1,3 @@
-group 'sql-optimizer'
-version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: "com.moowork.node"
-
-sourceCompatibility = 1.8
-
 buildscript {
     repositories {
         jcenter()
@@ -15,9 +6,20 @@ buildscript {
         }
     }
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.1.RELEASE"
-        classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.1.RELEASE'
+        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+        classpath 'com.moowork.gradle:gradle-grunt-plugin:0.13'
     }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'com.moowork.node'
+apply plugin: 'com.moowork.grunt'
+
+jar {
+    baseName = 'sql-optimizer'
+    version = '0.0.1'
 }
 
 repositories {
@@ -26,8 +28,13 @@ repositories {
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.4.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '1.5.1.RELEASE'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+grunt {
+    bufferOutput = false
 }
 
 task appNpmInstall(type: NpmTask) {
@@ -36,11 +43,11 @@ task appNpmInstall(type: NpmTask) {
     args = ['install']
 }
 
-//task gruntDefault(
-//        type: GruntTask,
-//        group: 'grunt',
-//        description: 'Cleans and recreates all Javascript dependencies',
-//        dependsOn: ['npmInstall']) {
-//}
+task gruntDefault(
+        type: GruntTask,
+        group: 'grunt',
+        description: 'Cleans and recreates all Javascript dependencies',
+        dependsOn: ['npmInstall']) {
+}
 
-processResources.dependsOn(project.tasks.appNpmInstall)
+processResources.dependsOn(project.tasks.appNpmInstall, project.tasks.gruntDefault)
