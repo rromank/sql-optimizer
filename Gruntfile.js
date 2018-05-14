@@ -41,24 +41,41 @@ module.exports = function (grunt) {
                 files: {
                     './build/resources/main/public/js/vendor.js': [
                         './node_modules/angular/angular.js',
+
+                        './node_modules/codemirror/lib/codemirror.js',
+                        './node_modules/angular-ui-codemirror/src/ui-codemirror.js',
+
+                        './node_modules/ace-builds/src-min-noconflict/ace.js',
+                        './node_modules/angular-ui-ace/src/ui-ace.js',
+
                         './node_modules/angular-route/angular-route.js',
                         './node_modules/@uirouter/angularjs/release/angular-ui-router.js',
                         './node_modules/angular-cookies/angular-cookies.min.js',
                         './node_modules/ngstorage/ngStorage.min.js',
                         './node_modules/underscore/underscore-min.js',
-                        './node_modules/angular-sanitize/angular-sanitize.js'
+                        './node_modules/angular-sanitize/angular-sanitize.js',
+                        './node_modules/angular-highlightjs/build/angular-highlightjs.min.js'
                     ]
                 }
             }
         },
 
         copy: {
+            js:  {
+                expand: true,
+                flatten: true,
+                src: [
+                    './node_modules/ace-builds/src-min-noconflict/**/*.js'
+                ],
+                dest: './build/resources/main/public/'
+            },
             css: {
                 expand: true,
                 src: [
-                    './node_modules/ng-toast/dist/ngToast.min.css',
+                    './node_modules/bootstrap/dist/css/bootstrap.css',
                     './node_modules/font-awesome/css/font-awesome.min.css',
-                    './node_modules/font-awesome/fonts/**.*'
+                    './node_modules/font-awesome/fonts/**.*',
+                    './node_modules/codemirror/lib/codemirror.css'
                 ],
                 dest: './build/resources/main/public/css/'
             },

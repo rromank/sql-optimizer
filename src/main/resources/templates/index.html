@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="sql-optimizer" ng-controller="InitCtrl" class="no-js">
+<html lang="en" ng-app="sql-optimizer" class="no-js">
 
 <head>
     <meta charset="utf-8"></meta>
     <title>SQL Optimizer</title>
 
-    <base href="/"></base>
-
     <link rel="stylesheet" href="css/node_modules/bootstrap/dist/css/bootstrap.css"></link>
+    <link rel="stylesheet" href="css/node_modules/codemirror/lib/codemirror.css"></link>
 
     <script src="js/vendor.js"></script>
     <script src="js/partials.js"></script>
     <script src="js/sql-optimizer.js"></script>
+
+    <style>
+        .ace_editor  {
+            height : 200px;
+        }
+    </style>
 </head>
 
 <body>
+
+<a ui-sref="optimizer.query">Query Optimizer (input query)</a>
 
 <div ui-view="main"></div>
 
