@@ -33,4 +33,8 @@ angular.module('sql-optimizer')
                     }
                 }
             });
+    }).controller('OptimizerController', function ($scope) {
+        $scope.doneWithSqlQuery = function () {
+
+        }
     });

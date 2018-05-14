@@ -11,7 +11,8 @@
                         <div class="col-4 p-0">
                             <div class="card">
                                 <div class="card-body p-2">
-                                    <span class="badge badge-pill badge-primary float-right">1</span>
+                                    <span class="badge badge-pill float-right"
+                                          ng-class="section == 'query' ? 'badge-primary': 'badge-secondary'">1</span>
                                     <h6>Input SQL Query</h6>
                                     <div class="text-muted text-secondary">Show us the query to analyze</div>
                                 </div>
@@ -20,7 +21,8 @@
                         <div class="col-4 p-0">
                             <div class="card">
                                 <div class="card-body p-2">
-                                    <span class="badge badge-pill badge-secondary float-right">2</span>
+                                    <span class="badge badge-pill badge-secondary float-right"
+                                          ng-class="section == 'schema' ? 'badge-primary': 'badge-secondary'">2</span>
                                     <h6>Schema Structure</h6>
                                     <div class="text-muted text-secondary">Tell us how you DB looks like</div>
                                 </div>
@@ -41,11 +43,14 @@
                     <p class="card-text text-center">Please provide an SQL query you would like to optimize.</p>
                     <div class="form-group">
                         <label>SQL Query</label>
-                        <query></query>
+                        <div ui-view="optimizer"></div>
                     </div>
                 </div>
-                <div class="card-footer text-right">
-                    <button class="btn btn-sm btn-primary">Go next</button>
+                <div class="card-footer">
+                    <button ng-if="section == 'query'" ui-sref="optimizer.schema" class="btn btn-sm btn-primary pull-right">Done with SQL Query</button>
+
+                    <button ng-if="section == 'schema'" class="btn btn-sm btn-primary pull-right">Done with Schema Structure</button>
+                    <button ng-if="section == 'schema'" ui-sref="optimizer.query" class="btn btn-sm btn-secondary pull-left">Go Back</button>
                 </div>
             </div>
         </div>

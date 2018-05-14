@@ -1,6 +1,6 @@
 angular.module('sql-optimizer')
-    .controller('QueryInputController', function ($scope) {
-        $scope.aceValue = 'Foobar';
+    .controller('QueryInputController', function ($rootScope) {
+        $rootScope.section = 'query';
     })
     .directive('query', function () {
         return {
