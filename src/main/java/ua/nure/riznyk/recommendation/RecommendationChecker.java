@@ -3,8 +3,10 @@ package ua.nure.riznyk.recommendation;
 import net.sf.jsqlparser.JSQLParserException;
 import ua.nure.riznyk.model.Explain;
 
+import java.util.List;
+
 public interface RecommendationChecker {
-    Recommendation check(String query, Explain explain) throws JSQLParserException;
+    void check(String query, Explain explain, List<Recommendation> recommendations);
 
     default String clearQuery(String query) {
         return query.replaceAll("\\n", " ");
