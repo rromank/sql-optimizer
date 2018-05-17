@@ -1,9 +1,13 @@
 <p class="card-text text-center">Please provide a Database Schema you would like to use.</p>
 <br>
 <label>Database Schema</label>
-<section>
+<section style="border: 1px solid #ccc;">
     <div ui-ace="{
       theme:'chrome',
-      mode: 'sql'
+      mode: 'sql',
+      advanced: {
+        fontSize: '15px'
+      }
     }" ng-model="schema"></div>
 </section>
+<a ng-click="formatSchema()" href="javascript:">Beautify SQL</a>

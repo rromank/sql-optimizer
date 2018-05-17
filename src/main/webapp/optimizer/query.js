@@ -1,7 +1,15 @@
 angular.module('sql-optimizer')
-    .controller('QueryInputController', function ($rootScope) {
+    .controller('QueryInputController', function ($rootScope, $scope, queryStorage) {
         $rootScope.section = 'query';
-        $rootScope.query = 'SELECT * FROM columns WHERE table_schema = \'information_schema\'';
+
+        this.$onInit = function () {
+            $rootScope.query = queryStorage.getQuery(0).sql;
+        };
+
+        $scope.formatQuery = function () {
+            $scope.query = $rootScope.query = sqlFormatter.format($rootScope.query);
+        };
+
     })
     .directive('query', function () {
         return {

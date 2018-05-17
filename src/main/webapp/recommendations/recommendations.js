@@ -1,7 +1,17 @@
 angular.module('sql-optimizer')
-    .controller('StatisticsController', function ($rootScope, $scope, explainRepository) {
-        $rootScope.section = 'statistics';
-
+    .config(function ($stateProvider) {
+        $stateProvider
+            .state('recommendations', {
+                url: '/recommendations',
+                views: {
+                    'main': {
+                        templateUrl: 'recommendations/recommendations.html',
+                        controller: 'RecommendationsController'
+                    }
+                }
+            })
+    })
+    .controller('RecommendationsController', function ($rootScope, $scope, explainRepository) {
         this.$onInit = function () {
             explainQuery();
         };
@@ -15,11 +25,4 @@ angular.module('sql-optimizer')
                 console.log(result);
             });
         };
-    })
-    .directive('statistics', function () {
-        return {
-            restrict: 'E',
-            controller: 'StatisticsController',
-            templateUrl: 'optimizer/statistics.html'
-        }
     });

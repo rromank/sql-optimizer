@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.nure.riznyk.model.Explain;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,20 +13,17 @@ import java.sql.Statement;
 public class ExplainService {
 
     @Autowired
-    private DataSource dataSource;
+    private DatabaseService databaseService;
 
-    public Explain explainQuery(String selectQuery, String schema, String database) throws SQLException {
-        System.out.println("Query: ");
-        System.out.println(selectQuery);
-        System.out.println("Schema: ");
-        System.out.println(schema);
-
-        Connection connection = dataSource.getConnection();
-        connection.setCatalog(database);
+    public Explain explainQuery(String selectQuery, String schema) throws SQLException {
+        String database = databaseService.createNewDatabase();
+        Connection connection = databaseService.getConnection(database);
 
         Statement statement = connection.createStatement();
         statement.executeUpdate(schema);
-        return explainQuery(statement, selectQuery);
+        Explain explain = explainQuery(statement, selectQuery);
+        databaseService.dropDatabase(database);
+        return explain;
     }
 
     private Explain explainQuery(Statement statement, String selectQuery) throws SQLException {

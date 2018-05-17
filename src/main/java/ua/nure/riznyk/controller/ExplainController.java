@@ -15,12 +15,16 @@ import java.sql.SQLException;
 @RequestMapping("/api/v1/explain")
 public class ExplainController {
 
+    private final ExplainService explainService;
+
     @Autowired
-    private ExplainService explainService;
+    public ExplainController(ExplainService explainService) {
+        this.explainService = explainService;
+    }
 
     @PostMapping("/query")
     public Explain explainQuery(@RequestBody QueryRequest queryRequest) throws SQLException {
-        return explainService.explainQuery(queryRequest.getQuery(), queryRequest.getSchema(), queryRequest.getDatabase());
+        return explainService.explainQuery(queryRequest.getQuery(), queryRequest.getSchema());
     }
 
 }

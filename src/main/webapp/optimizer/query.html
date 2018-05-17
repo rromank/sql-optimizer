@@ -1,10 +1,14 @@
 <p class="card-text text-center">Please provide an SQL query you would like to optimize.</p>
 <br>
 <label>SQL Query</label>
-<section>
+<section style="border: 1px solid #ccc;">
     <div ui-ace="{
       theme:'chrome',
-      mode: 'sql'
+      mode: 'sql',
+      advanced: {
+        fontSize: '15px'
+      }
     }" ng-model="query"></div>
 
 </section>
+<a ng-click="formatQuery()" href="javascript:">Beautify SQL</a>
