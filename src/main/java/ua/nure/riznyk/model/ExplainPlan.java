@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Explain {
+public class ExplainPlan {
     private String id;
     private String selectType;
     private String table;

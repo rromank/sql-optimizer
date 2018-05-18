@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{tip.title}}</h5>
+        <p class="card-text">{{tip.description}}</p>
+
+        <div ng-if="tip.bestPractice">
+            <span class="text-success">Best practice example:</span>
+            <div style="height: 50px; border: 1px dashed #ccc;" ui-ace="{
+              theme:'chrome',
+              mode: 'sql',
+              advanced: {
+                fontSize: '15px'
+              }
+            }" ng-model="tip.bestPractice"></div>
+        </div>
+        <br>
+        <div ng-if="tip.badPractice">
+            <span class="text-danger">Bed practice example:</span>
+            <div style="height: 50px; border: 1px dashed #ccc;" ui-ace="{
+              theme:'chrome',
+              mode: 'sql',
+              advanced: {
+                fontSize: '15px'
+              }
+            }" ng-model="tip.badPractice"></div>
+        </div>
+    </div>
+</div>

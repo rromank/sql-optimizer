@@ -40,6 +40,8 @@ dependencies {
 
     compile files("$rootProject.projectDir/src/main/resources/libs/gsp.jar")
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.10.0'
+
 }
 
 grunt {

@@ -11,8 +11,11 @@ angular.module('sql-optimizer')
                 }
             })
     })
-    .controller('RecommendationsController', function ($rootScope, $scope, explainRepository) {
-        this.$onInit = function () {
+    .controller('RecommendationsController', function ($rootScope, $scope, recommendationRepository, tipsService) {
+        var self = this;
+        $scope.tips = [];
+
+        self.$onInit = function () {
             explainQuery();
         };
 
@@ -21,8 +24,17 @@ angular.module('sql-optimizer')
                 console.log('Can not explain query, query or schema is not provided');
                 return;
             }
-            explainRepository.explainQuery($rootScope.query, $rootScope.schema).then(function (result) {
-                console.log(result);
-            });
+            recommendationRepository.checkForRecommendations($rootScope.query, $rootScope.schema)
+                .then(getTips);
+        };
+
+        var getTips = function (recommendations) {
+            for (var i = 0; i < recommendations.length; i++) {
+                var tip = tipsService.getTip(recommendations[i].type);
+                if (tip) {
+                    $scope.tips.push(tip);
+                }
+            }
+            console.log($scope.tips);
         };
     });

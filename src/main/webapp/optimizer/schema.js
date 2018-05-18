@@ -9,6 +9,10 @@ angular.module('sql-optimizer')
         $scope.formatSchema = function () {
             $scope.schema = $rootScope.schema = sqlFormatter.format($rootScope.schema);
         };
+
+        $scope.schemaChanged = function () {
+            $rootScope.schema = $scope.schema;
+        }
     })
     .directive('schema', function () {
         return {

@@ -55,7 +55,8 @@ module.exports = function (grunt) {
                         './node_modules/underscore/underscore-min.js',
                         './node_modules/angular-sanitize/angular-sanitize.js',
                         './node_modules/angular-highlightjs/build/angular-highlightjs.min.js',
-                        './node_modules/sql-formatter/dist/sql-formatter.min.js'
+                        './node_modules/sql-formatter/dist/sql-formatter.min.js',
+                        './node_modules/underscore/underscore-min.js'
                     ]
                 }
             }
