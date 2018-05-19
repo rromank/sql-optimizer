@@ -4,10 +4,21 @@
         <h3>Query Optimization Report</h3>
         <br>
         <div class="row">
-            <div ng-repeat="tip in tips" ng-class="tip.width" class="mt-2 mb-2">
+            <div ng-repeat="tip in wideTips" class="col-12 mt-2 mb-2">
                 <tip tip="tip"></tip>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-6">
+                <div ng-repeat="tip in narrowTips" class="mt-2 mb-2" ng-if="$even">
+                    <tip tip="tip"></tip>
+                </div>
+            </div>
+            <div class="col-6">
+                <div ng-repeat="tip in narrowTips" class="mt-2 mb-2" ng-if="$odd">
+                    <tip tip="tip"></tip>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

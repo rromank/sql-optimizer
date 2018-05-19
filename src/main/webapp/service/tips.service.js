@@ -2,20 +2,20 @@ angular.module('sql-optimizer')
     .factory('tipsService', function () {
         var tips = [
             {
-                type: 'ASTERISK',
-                title: 'Avoid Selecting Unnecessary Columns',
-                description: 'Avoid selecting all columns with the \'*\' wildcard, unless you intend to use them all. Selecting redundant columns may result in unnecessary performance degradation.',
-                bestPractice: 'SELECT col1, col2 FROM table',
-                badPractice: 'SELECT * FROM table',
-                width: 'col-6'
-            },
-            {
                 type: 'INDEX',
                 title: 'Indexing Tips',
                 description: 'The most important step in query optimization is creating the optimal indexes.\n' +
                 'Please execute the following statements on your database to create the indexes required for optimal query performance.',
                 suggestions: [],
-                width: 'col-12'
+                width: 'wide'
+            },
+            {
+                type: 'ASTERISK',
+                title: 'Avoid Selecting Unnecessary Columns',
+                description: 'Avoid selecting all columns with the \'*\' wildcard, unless you intend to use them all. Selecting redundant columns may result in unnecessary performance degradation.',
+                bestPractice: 'SELECT col1, col2 FROM table',
+                badPractice: 'SELECT * FROM table',
+                width: 'narrow'
             },
             {
                 type: 'GROUP_BY_WITHOUT_ORDER_BY',
@@ -41,7 +41,27 @@ angular.module('sql-optimizer')
                 '  age > 50\n' +
                 'GROUP BY\n' +
                 '  age;',
-                width: 'col-6'
+                width: 'narrow'
+            },
+            {
+                type: 'LIKE_WITH_LEADING_WILDCARD',
+                title: 'Avoid LIKE Searches With Leading Wildcard',
+                description: 'MySQL will not use an index when using like searches with a leading wildcard (i.e, \'%bar%\'). Although it\'s not always a satisfactory solution, please consider using prefix-match LIKE patterns (i.e, \'TERM%\').',
+                bestPractice: 'SELECT\n' +
+                '  id,\n' +
+                '  text\n' +
+                'FROM\n' +
+                '  tbl\n' +
+                'WHERE\n' +
+                '  text LIKE \'TERM%\';',
+                badPractice: 'SELECT\n' +
+                '  id,\n' +
+                '  text\n' +
+                'FROM\n' +
+                '  tbl\n' +
+                'WHERE\n' +
+                '  text LIKE \'%TERM%\';',
+                width: 'narrow'
             }
         ];
 

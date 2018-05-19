@@ -1,11 +1,14 @@
 angular.module('sql-optimizer')
     .factory('queryStorageService', function () {
         var queries = [{
-            sql: 'SELECT *\n' +
+            sql: 'SELECT\n' +
+            '  *\n' +
             'FROM\n' +
-            '   test_table tbl1\n' +
+            '  test_table tbl1\n' +
+            'WHERE\n' +
+            '  tbl1.name LIKE \'%Sam%\'\n' +
             'GROUP BY\n' +
-            '   tbl1.name',
+            '  tbl1.name',
             schema: 'CREATE TABLE `test_table` (\n' +
             '  `id` INT(11) NOT NULL AUTO_INCREMENT,\n' +
             '  `name` VARCHAR(50) NOT NULL DEFAULT \'0\',\n' +

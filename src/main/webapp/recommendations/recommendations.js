@@ -13,7 +13,8 @@ angular.module('sql-optimizer')
     })
     .controller('RecommendationsController', function ($rootScope, $scope, recommendationRepository, tipsService) {
         var self = this;
-        $scope.tips = [];
+        $scope.wideTips = [];
+        $scope.narrowTips = [];
 
         self.$onInit = function () {
             checkForRecommendations();
@@ -37,8 +38,12 @@ angular.module('sql-optimizer')
                 }
             }
 
-            $scope.tips = _.sortBy(tips, 'width');
+            console.log(tips);
 
-            console.log($scope.tips);
+            $scope.wideTips = _.where(tips, {'width': 'wide'});
+            $scope.narrowTips = _.where(tips, {'width': 'narrow'});
+
+            console.log($scope.wideTips);
+            console.log($scope.narrowTips);
         };
     });
