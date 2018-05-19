@@ -18,17 +18,21 @@ public class IndexChecker implements RecommendationChecker {
         query = clearQuery(query);
         Set<String> columns = getColumns(query);
 
+        Recommendation recommendation = new Recommendation();
+        recommendation.setType(RecommendationType.INDEX);
+
         columns.stream()
                 .filter(column -> !column.split("\\.")[1].equals("*"))
-                .forEach(column ->  {
-                    Recommendation recommendation = new Recommendation();
-                    recommendation.setType(RecommendationType.INDEX);
+                .forEach(column -> {
                     String tableName = column.split("\\.")[0];
                     String columnName = column.split("\\.")[1];
 
-                    recommendation.setSql("ALTER TABLE `" + tableName + "` ADD INDEX `" + tableName + "_idx_" + columnName + "` (`" + columnName + "`);");
-                    recommendations.add(recommendation);
+                    recommendation.addSql("ALTER TABLE `" + tableName + "` ADD INDEX `" + tableName + "_idx_" + columnName + "` (`" + columnName + "`);");
                 });
+
+        if (!recommendation.getSql().isEmpty()) {
+            recommendations.add(recommendation);
+        }
     }
 
     private Set<String> getColumns(String sql) {

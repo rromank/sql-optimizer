@@ -1,9 +1,9 @@
 angular.module('sql-optimizer')
-    .controller('SchemaInputController', function ($rootScope, $scope, queryStorage) {
+    .controller('SchemaInputController', function ($rootScope, $scope, queryStorageService) {
         $rootScope.section = 'schema';
 
         this.$onInit = function () {
-            $rootScope.schema = queryStorage.getQuery(0).schema;
+            $rootScope.schema = queryStorageService.getQuery(0).schema;
         };
 
         $scope.formatSchema = function () {

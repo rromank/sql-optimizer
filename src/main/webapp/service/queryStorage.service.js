@@ -1,5 +1,5 @@
 angular.module('sql-optimizer')
-    .factory('queryStorage', function () {
+    .factory('queryStorageService', function () {
         var queries = [{
             sql: 'SELECT *\n' +
             'FROM\n' +

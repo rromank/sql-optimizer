@@ -1,10 +1,10 @@
 angular.module('sql-optimizer')
-    .controller('QueryInputController', function ($rootScope, $scope, queryStorage) {
+    .controller('QueryInputController', function ($rootScope, $scope, queryStorageService) {
         $rootScope.section = 'query';
         $rootScope.inputQuery = {};
 
         this.$onInit = function () {
-            $rootScope.query = $scope.query = queryStorage.getQuery(0).sql;
+            $rootScope.query = $scope.query = queryStorageService.getQuery(0).sql;
         };
 
         $scope.formatQuery = function () {

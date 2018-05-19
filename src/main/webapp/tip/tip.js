@@ -5,6 +5,6 @@ angular.module('sql-optimizer')
             scope: {
                 tip: '=tip'
             },
-            templateUrl: 'recommendations/tip.html'
+            templateUrl: 'tip/tip.html'
         }
     });

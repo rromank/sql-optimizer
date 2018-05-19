@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -12,29 +14,9 @@ import java.util.Objects;
 @EqualsAndHashCode
 public class Recommendation {
     private RecommendationType type;
-    private String sql;
+    private List<String> sql = new ArrayList<>();
 
-    public RecommendationType getType() {
-        return type;
-    }
-
-    public void setType(RecommendationType type) {
-        this.type = type;
-    }
-
-    public String getSql() {
-        return sql;
-    }
-
-    public void setSql(String sql) {
-        this.sql = sql;
-    }
-
-    @Override
-    public String toString() {
-        return "Recommendation{" +
-                "type=" + type +
-                ", sql='" + sql + '\'' +
-                '}';
+    public void addSql(String query) {
+        sql.add(query);
     }
 }
