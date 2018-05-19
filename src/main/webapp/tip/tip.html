@@ -9,17 +9,21 @@
               theme:'sqlserver',
               mode: 'sql',
               advanced: {
-                fontSize: '15px'
+                fontSize: '15px',
+                maxLines: 15,
+                showGutter: false
               }
             }" ng-model="tip.bestPractice"></div>
         </div>
         <div class="mb-3" ng-if="tip.badPractice">
-            <span class="text-danger">Bed practice example:</span>
+            <span class="text-danger">Bad practice example:</span>
             <div style="height: 50px; border: 1px dashed #ccc;" ui-ace="{
               theme:'sqlserver',
               mode: 'sql',
               advanced: {
-                fontSize: '15px'
+                fontSize: '15px',
+                maxLines: 15,
+                showGutter: false
               }
             }" ng-model="tip.badPractice"></div>
         </div>

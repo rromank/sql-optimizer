@@ -19,4 +19,20 @@ public class Recommendation {
     public void addSql(String query) {
         sql.add(query);
     }
+
+    public RecommendationType getType() {
+        return type;
+    }
+
+    public void setType(RecommendationType type) {
+        this.type = type;
+    }
+
+    public List<String> getSql() {
+        return sql;
+    }
+
+    public void setSql(List<String> sql) {
+        this.sql = sql;
+    }
 }
