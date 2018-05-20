@@ -1,7 +1,9 @@
 package ua.nure.riznyk.recommendation.checker;
 
 import gudusoft.gsqlparser.EDbVendor;
+import gudusoft.gsqlparser.TCustomSqlStatement;
 import gudusoft.gsqlparser.TGSqlParser;
+import gudusoft.gsqlparser.nodes.TTable;
 import org.springframework.stereotype.Component;
 import ua.nure.riznyk.model.ExplainPlan;
 import ua.nure.riznyk.recommendation.Recommendation;
@@ -10,12 +12,13 @@ import ua.nure.riznyk.recommendation.RecommendationType;
 
 import java.util.*;
 
+import static gudusoft.gsqlparser.ESqlStatementType.sstselect;
+
 @Component
 public class IndexChecker implements RecommendationChecker {
 
     @Override
     public void check(String query, ExplainPlan explainPlan, List<Recommendation> recommendations) {
-        query = clearQuery(query);
         Set<String> columns = getColumns(query);
 
         Recommendation recommendation = new Recommendation();
@@ -37,23 +40,35 @@ public class IndexChecker implements RecommendationChecker {
 
     private Set<String> getColumns(String sql) {
         Set<String> foundCols = new TreeSet<>(String::compareToIgnoreCase);
-        TGSqlParser sqlparser = new TGSqlParser(EDbVendor.dbvmysql);
-        sqlparser.setSqltext(sql);
+        TGSqlParser sqlParser = new TGSqlParser(EDbVendor.dbvmysql);
+        sqlParser.setSqltext(sql);
+        sqlParser.parse();
 
-        if (sqlparser.parse() == 0) {
-            sqlparser.getSqlstatements().forEachRemaining(statement -> {
-                for (int i = 0; i < statement.getTables().size(); i++) {
-                    if (statement.tables.getTable(i).isBaseTable()) {
-                        for (int j = 0; j < statement.tables.getTable(i).getObjectNameReferences().size(); j++) {
-                            foundCols.add(statement.tables.getTable(i).getFullName()
-                                    + "."
-                                    + statement.tables.getTable(i).getObjectNameReferences().getObjectName(j).getColumnNameOnly());
-                        }
-                    }
-                }
-            });
+        for (int i = 0; i < sqlParser.getSqlstatements().size(); i++) {
+            TCustomSqlStatement statement = sqlParser.getSqlstatements().get(i);
+            getFromStatement(statement, foundCols);
         }
         return foundCols;
     }
 
+    private void getFromStatement(TCustomSqlStatement statement, Set<String> foundCols) {
+        if (statement.sqlstatementtype != sstselect) {
+            return;
+        }
+
+        if (statement.getStatements().size() > 0) {
+            for (int i = 0; i < statement.getStatements().size(); i++) {
+                getFromStatement(statement.getStatements().get(i), foundCols);
+            }
+        }
+
+        for (int j = 0; j < statement.getTables().size(); j++) {
+            TTable table = statement.getTables().getTable(j);
+            String tableName = table.getName();
+            for (int k = 0; k < table.getObjectNameReferences().size(); k++) {
+                String columnName = table.getObjectNameReferences().getObjectName(k).getColumnNameOnly();
+                foundCols.add(tableName + "." + columnName);
+            }
+        }
+    }
 }

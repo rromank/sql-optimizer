@@ -62,6 +62,12 @@ angular.module('sql-optimizer')
                 'WHERE\n' +
                 '  text LIKE \'%TERM%\';',
                 width: 'narrow'
+            },
+            {
+                type: 'SUBQUERIES',
+                title: 'Avoid Subqueries',
+                description: 'The MySQL team advises against using subqueries as they are not optimized well by the optimizer. Therefore, it\'s recommended to join a newly created temporary table that holds the data, which also includes the relevant search index.',
+                width: 'narrow'
             }
         ];
 
